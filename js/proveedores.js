@@ -4,7 +4,7 @@ import { mostrarLoader, ocultarLoader, mostrarError, limpiarError } from "./util
 document.getElementById("formProveedor")?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    let rutInput = document.getElementById("rut").value.trim();
+    const rutInput = document.getElementById("rut").value.trim();
 
     if (!validarRUT(rutInput)) {
         mostrarError("RUT inválido.");
@@ -17,8 +17,12 @@ document.getElementById("formProveedor")?.addEventListener("submit", async (e) =
         const rutLimpio = limpiarRUT(rutInput);
         const rutFormateado = formatearRUT(rutLimpio);
 
+        console.log("RUT enviado:", rutFormateado);
+
         const url = construirURLProveedor(rutFormateado);
         const data = await fetchAPI(url);
+
+        console.log("Respuesta API:", data);
 
         if (!data || data.Cantidad === 0) {
             mostrarError("Proveedor no encontrado.");
@@ -28,12 +32,14 @@ document.getElementById("formProveedor")?.addEventListener("submit", async (e) =
         limpiarError();
         renderizarProveedor(data.listaEmpresas[0]);
 
-    } catch {
+    } catch (error) {
+        console.error(error);
         mostrarError("Error consultando proveedor.");
     } finally {
         ocultarLoader();
     }
 });
+
 
 
 function validarRUT(rut) {
@@ -54,10 +60,10 @@ function validarRUT(rut) {
 
     const dvEsperado = 11 - (suma % 11);
 
-    const dvCalculado =
-        dvEsperado === 11 ? "0" :
-        dvEsperado === 10 ? "K" :
-        String(dvEsperado);
+    let dvCalculado;
+    if (dvEsperado === 11) dvCalculado = "0";
+    else if (dvEsperado === 10) dvCalculado = "K";
+    else dvCalculado = String(dvEsperado);
 
     return dvCalculado === dv;
 }
@@ -66,6 +72,13 @@ function validarRUT(rut) {
 function limpiarRUT(rut) {
     return rut.replace(/[^0-9kK]/g, "").toUpperCase();
 }
+
+function formatearRUT(rutLimpio) {
+    const cuerpo = rutLimpio.slice(0, -1);
+    const dv = rutLimpio.slice(-1);
+    return ${cuerpo}-${dv};
+}
+
 
 
 function renderizarProveedor(proveedor) {
