@@ -30,10 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 function renderizarDetalle(detalle) {
     const contenedor = document.getElementById("detalle");
 
-    //  Siempre usar el objeto Fechas
-    const fechaCierre = detalle.Fechas && detalle.Fechas.FechaCierre
-        ? formatearFecha(detalle.Fechas.FechaCierre)
-        : "No disponible";
+    const fechaCierre = obtenerFechaCierre(detalle);
 
     contenedor.innerHTML = `
         <h2>${detalle.Nombre || "Sin nombre"}</h2>
@@ -51,4 +48,20 @@ function formatearFecha(fechaISO) {
         month: "2-digit",
         year: "numeric"
     });
+}
+
+
+function obtenerFechaCierre(detalle) {
+    // Primera opción: FechaCierre directa
+    if (detalle.FechaCierre) {
+        return formatearFecha(detalle.FechaCierre);
+    }
+
+    // Segunda opción: objeto Fechas
+    if (detalle.Fechas && detalle.Fechas.FechaCierre) {
+        return formatearFecha(detalle.Fechas.FechaCierre);
+    }
+
+    // Si ninguna existe
+    return "No disponible";
 }
