@@ -1,5 +1,5 @@
 import { fetchAPI, construirURLProveedor } from "./api.js";
-import { mostrarLoader, ocultarLoader, mostrarError } from "./utils.js";
+import { mostrarLoader, ocultarLoader, mostrarError, limpiarError } from "./utils.js";
 
 document.getElementById("formProveedor")?.addEventListener("submit", async (e) => {
     e.preventDefault();
