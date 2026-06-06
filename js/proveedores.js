@@ -32,25 +32,34 @@ document.getElementById("formProveedor")?.addEventListener("submit", async (e) =
 });
 
 function validarRUT(rut) {
-    rut = rut.replace(/\./g, '').replace('-', '');
-    const cuerpo = rut.slice(0, -1);
-    const dv = rut.slice(-1).toUpperCase();
+    if (!rut) return false;
+
+    const rutLimpio = rut.replace(/\./g, "").replace(/-/g, "");
+
+    if (rutLimpio.length < 2) return false;
+
+    const cuerpo = rutLimpio.slice(0, -1);
+    const dv = rutLimpio.slice(-1).toUpperCase();
 
     let suma = 0;
     let multiplo = 2;
 
     for (let i = cuerpo.length - 1; i >= 0; i--) {
-        suma += multiplo * cuerpo.charAt(i);
+        suma += parseInt(cuerpo.charAt(i), 10) * multiplo;
         multiplo = multiplo < 7 ? multiplo + 1 : 2;
     }
 
-    const dvEsperado = 11 - (suma % 11);
-    const dvFinal = dvEsperado === 11 ? "0" :
-                    dvEsperado === 10 ? "K" :
-                    dvEsperado.toString();
+    const resto = suma % 11;
+    const dvEsperado = 11 - resto;
 
-    return dvFinal === dv;
+    const dvCalculado =
+        dvEsperado === 11 ? "0" :
+        dvEsperado === 10 ? "K" :
+        String(dvEsperado);
+
+    return dvCalculado === dv;
 }
+
 
 function renderizarProveedor(proveedor) {
     const contenedor = document.getElementById("resultadoProveedor");
