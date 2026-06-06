@@ -105,6 +105,11 @@ Acceder desde http://localhost.
     --> Arquitectura modular
     --> Despliegue en servidor
 
+** URL para acceder desde GitHub
+
+https://charolcarrascodominguez.github.io/evaFinal_Frontend_carrasco_charol/index.html
+
+
 ** Conclusión
 LicitaSeguro cumple con los requerimientos técnicos y funcionales establecidos en la evaluación, implementando una solución frontend estructurada, accesible y alineada con buenas prácticas modernas de desarrollo web.
 
