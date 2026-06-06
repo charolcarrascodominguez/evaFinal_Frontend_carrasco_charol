@@ -4,9 +4,9 @@ import { mostrarLoader, ocultarLoader, mostrarError, limpiarError } from "./util
 document.getElementById("formProveedor")?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const rut = document.getElementById("rut").value.trim();
+    let rutInput = document.getElementById("rut").value.trim();
 
-    if (!validarRUT(rut)) {
+    if (!validarRUT(rutInput)) {
         mostrarError("RUT inválido.");
         return;
     }
@@ -14,48 +14,45 @@ document.getElementById("formProveedor")?.addEventListener("submit", async (e) =
     mostrarLoader();
 
     try {
-        const url = construirURLProveedor(rut);
+        const rutLimpio = limpiarRUT(rutInput);
+        const rutFormateado = formatearRUT(rutLimpio);
+
+        const url = construirURLProveedor(rutFormateado);
         const data = await fetchAPI(url);
 
-        console.log("Respuesta API:", data);
-
-        //  Validación correcta
-        if (!data || data.Cantidad === 0 || !data.listaEmpresas) {
+        if (!data || data.Cantidad === 0) {
             mostrarError("Proveedor no encontrado.");
             return;
         }
 
-        limpiarError(); //  importante
+        limpiarError();
         renderizarProveedor(data.listaEmpresas[0]);
 
-    } catch (error) {
-        console.error(error);
+    } catch {
         mostrarError("Error consultando proveedor.");
     } finally {
         ocultarLoader();
     }
 });
 
-function validarRUT(rut) {
-    if (!rut) return false;
 
-    const rutLimpio = rut.replace(/\./g, "").replace(/-/g, "");
+function validarRUT(rut) {
+    const rutLimpio = limpiarRUT(rut);
 
     if (rutLimpio.length < 2) return false;
 
     const cuerpo = rutLimpio.slice(0, -1);
-    const dv = rutLimpio.slice(-1).toUpperCase();
+    const dv = rutLimpio.slice(-1);
 
     let suma = 0;
     let multiplo = 2;
 
     for (let i = cuerpo.length - 1; i >= 0; i--) {
-        suma += parseInt(cuerpo.charAt(i), 10) * multiplo;
+        suma += parseInt(cuerpo.charAt(i)) * multiplo;
         multiplo = multiplo < 7 ? multiplo + 1 : 2;
     }
 
-    const resto = suma % 11;
-    const dvEsperado = 11 - resto;
+    const dvEsperado = 11 - (suma % 11);
 
     const dvCalculado =
         dvEsperado === 11 ? "0" :
@@ -63,6 +60,11 @@ function validarRUT(rut) {
         String(dvEsperado);
 
     return dvCalculado === dv;
+}
+
+
+function limpiarRUT(rut) {
+    return rut.replace(/[^0-9kK]/g, "").toUpperCase();
 }
 
 
