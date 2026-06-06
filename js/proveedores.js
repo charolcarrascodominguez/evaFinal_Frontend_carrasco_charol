@@ -3,10 +3,13 @@ import { mostrarLoader, ocultarLoader, mostrarError, limpiarError } from "./util
 
 document.getElementById("formProveedor")?.addEventListener("submit", async (e) => {
     e.preventDefault();
-
+    limpiarResultadoProveedor();
+    limpiarError();
     const rutInput = document.getElementById("rut").value.trim();
 
+    //  Si RUT inválido
     if (!validarRUT(rutInput)) {
+        limpiarResultadoProveedor();
         mostrarError("RUT inválido.");
         return;
     }
@@ -17,14 +20,12 @@ document.getElementById("formProveedor")?.addEventListener("submit", async (e) =
         const rutLimpio = limpiarRUT(rutInput);
         const rutFormateado = formatearRUT(rutLimpio);
 
-        console.log("RUT enviado:", rutFormateado);
-
         const url = construirURLProveedor(rutFormateado);
         const data = await fetchAPI(url);
 
-        console.log("Respuesta API:", data);
-
+        //  Si no existe proveedor
         if (!data || data.Cantidad === 0) {
+            limpiarResultadoProveedor();
             mostrarError("Proveedor no encontrado.");
             return;
         }
@@ -33,13 +34,19 @@ document.getElementById("formProveedor")?.addEventListener("submit", async (e) =
         renderizarProveedor(data.listaEmpresas[0]);
 
     } catch (error) {
-        console.error(error);
+        limpiarResultadoProveedor();
         mostrarError("Error consultando proveedor.");
     } finally {
         ocultarLoader();
     }
 });
 
+function limpiarResultadoProveedor() {
+    const contenedor = document.getElementById("resultadoProveedor");
+    if (contenedor) {
+        contenedor.innerHTML = "";
+    }
+}
 
 
 function validarRUT(rut) {
