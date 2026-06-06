@@ -18,13 +18,13 @@ export async function fetchAPI(endpoint) {
 }
 
 export function construirURLListado(fecha, estado) {
-    return ${CONFIG.BASE_URL}/publico/licitaciones.json?fecha=${fecha}&estado=${estado}&ticket=${CONFIG.TICKET};
+    return `${CONFIG.BASE_URL}/publico/licitaciones.json?fecha=${fecha}&estado=${estado}&ticket=${CONFIG.TICKET}`;
 }
 
 export function construirURLDetalle(codigo) {
-    return ${CONFIG.BASE_URL}/publico/licitaciones.json?codigo=${codigo}&ticket=${CONFIG.TICKET};
+    return `${CONFIG.BASE_URL}/publico/licitaciones.json?codigo=${codigo}&ticket=${CONFIG.TICKET}`;
 }
 
 export function construirURLProveedor(rut) {
-    return ${CONFIG.BASE_URL}/Publico/Empresas/BuscarProveedor?rutempresaproveedor=${rut}&ticket=${CONFIG.TICKET};
+    return `${CONFIG.BASE_URL}/Publico/Empresas/BuscarProveedor?rutempresaproveedor=${rut}&ticket=${CONFIG.TICKET}`;
 }
