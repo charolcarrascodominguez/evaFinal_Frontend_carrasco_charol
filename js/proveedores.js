@@ -88,7 +88,7 @@ function formatearRUT(rutLimpio) {
         .reverse()
         .join('');
 
-    return ${cuerpoConPuntos}-${dv};
+    return `${cuerpoConPuntos}-${dv}`;
 }
 
 
