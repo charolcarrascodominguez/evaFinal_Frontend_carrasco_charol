@@ -76,7 +76,19 @@ function limpiarRUT(rut) {
 function formatearRUT(rutLimpio) {
     const cuerpo = rutLimpio.slice(0, -1);
     const dv = rutLimpio.slice(-1);
-    return `${cuerpo}-${dv}`;
+
+    // Agregar puntos desde atrás
+    const cuerpoConPuntos = cuerpo
+        .split('')
+        .reverse()
+        .join('')
+        .match(/.{1,3}/g)
+        .join('.')
+        .split('')
+        .reverse()
+        .join('');
+
+    return ${cuerpoConPuntos}-${dv};
 }
 
 
