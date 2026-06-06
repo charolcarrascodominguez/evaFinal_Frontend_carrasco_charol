@@ -4,7 +4,7 @@ import { mostrarLoader, ocultarLoader, mostrarError } from "./utils.js";
 document.getElementById("formProveedor")?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const rut = document.getElementById("rut").value;
+    const rut = document.getElementById("rut").value.trim();
 
     if (!validarRUT(rut)) {
         mostrarError("RUT inválido.");
@@ -17,14 +17,19 @@ document.getElementById("formProveedor")?.addEventListener("submit", async (e) =
         const url = construirURLProveedor(rut);
         const data = await fetchAPI(url);
 
-        if (!data.Listado || data.Listado.length === 0) {
+        console.log("Respuesta API:", data);
+
+        //  Validación correcta
+        if (!data || data.Cantidad === 0 || !data.listaEmpresas) {
             mostrarError("Proveedor no encontrado.");
             return;
         }
 
+        limpiarError(); //  importante
         renderizarProveedor(data.listaEmpresas[0]);
 
-    } catch {
+    } catch (error) {
+        console.error(error);
         mostrarError("Error consultando proveedor.");
     } finally {
         ocultarLoader();
@@ -65,8 +70,7 @@ function renderizarProveedor(proveedor) {
     const contenedor = document.getElementById("resultadoProveedor");
 
     contenedor.innerHTML = `
-        <h3>${limpiarTexto(proveedor.NombreEmpresa)}</h3>
-        <p><strong>RUT:</strong> ${proveedor.RutEmpresa}</p>
-        <p><strong>Estado:</strong> ${proveedor.Estado}</p>
+        <h3>${proveedor.NombreEmpresa}</h3>
+        <p><strong>Código Empresa:</strong> ${proveedor.CodigoEmpresa}</p>
     `;
 }
