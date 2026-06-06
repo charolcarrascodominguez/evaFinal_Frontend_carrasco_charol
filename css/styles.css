@@ -1,0 +1,275 @@
+/* ==========================================
+   LICITASEGURO - ESTILOS PERSONALIZADOS
+   Autor: Charol Carrasco
+   ========================================== */
+
+/* ===============================
+   VARIABLES GLOBALES
+================================= */
+
+:root {
+    --color-primario: #003366;
+    --color-secundario: #0056b3;
+    --color-acento: #00aaff;
+    --color-exito: #198754;
+    --color-error: #dc3545;
+    --color-fondo: #f8f9fa;
+    --color-texto: #212529;
+    --color-blanco: #ffffff;
+    --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --radio: 8px;
+}
+
+/* ===============================
+   RESET BÁSICO
+================================= */
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* ===============================
+   NAVBAR
+================================= */
+
+.navbar {
+    background-color: var(--color-primario) !important;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: var(--color-blanco) !important;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+    color: var(--color-acento) !important;
+}
+
+/* ===============================
+   HEADERS
+================================= */
+
+h1, h2, h3 {
+    font-weight: 600;
+    color: var(--color-primario);
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* ===============================
+   TARJETAS LICITACIONES
+================================= */
+
+.card {
+    border: none;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-body h5 {
+    color: var(--color-primario);
+    font-size: 1.1rem;
+}
+
+/* Accesibilidad teclado */
+.card:focus {
+    outline: 3px solid var(--color-acento);
+    outline-offset: 3px;
+}
+
+/* ===============================
+   BOTONES
+================================= */
+
+.btn-primary {
+    background-color: var(--color-primario);
+    border: none;
+    border-radius: var(--radio);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--color-secundario);
+}
+
+.btn-outline-primary {
+    border-radius: var(--radio);
+}
+
+/* Botones accesibles */
+button:focus {
+    outline: 3px solid var(--color-acento);
+    outline-offset: 2px;
+}
+
+/* ===============================
+   FORMULARIOS
+================================= */
+
+.form-control {
+    border-radius: var(--radio);
+}
+
+.form-control:focus {
+    border-color: var(--color-acento);
+    box-shadow: 0 0 0 0.2rem rgba(0, 170, 255, 0.25);
+}
+
+label {
+    font-weight: 500;
+}
+
+/* ===============================
+   MENSAJES DE ERROR
+================================= */
+
+#error {
+    background-color: var(--color-error);
+    color: var(--color-blanco);
+    padding: 10px;
+    border-radius: var(--radio);
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+/* ===============================
+   LOADER
+================================= */
+
+#loader {
+    margin: 30px 0;
+}
+
+/* ===============================
+   PAGINACIÓN
+================================= */
+
+#paginacion {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#paginacion button {
+    min-width: 40px;
+}
+
+/* ===============================
+   DETALLE LICITACIÓN
+================================= */
+
+#detalle {
+    background: var(--color-blanco);
+    padding: 20px;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-suave);
+}
+
+/* ===============================
+   RESULTADO PROVEEDOR
+================================= */
+
+#resultadoProveedor {
+    background: var(--color-blanco);
+    padding: 20px;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-suave);
+    margin-top: 20px;
+}
+
+/* ===============================
+   FOOTER
+================================= */
+
+footer {
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 768px) {
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .card-body h5 {
+        font-size: 1rem;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* ===============================
+   ANIMACIONES SUAVES
+================================= */
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===============================
+   MEJORAS DE ACCESIBILIDAD
+================================= */
+
+/* Mejora contraste enlaces */
+a {
+    color: var(--color-secundario);
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    text-decoration: underline;
+}
+
+/* Navegación por teclado */
+a:focus {
+    outline: 3px solid var(--color-acento);
+    outline-offset: 3px;
+}

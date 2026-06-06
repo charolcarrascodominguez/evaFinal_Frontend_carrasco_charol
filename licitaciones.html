@@ -1,0 +1,70 @@
+confirmaciones de lectura. Añadir reacción👍:pulgar-hacia-arriba:😂:cara-llorando-de-risa:🙏:manos-en-oración:Añadir reacciónspoolResponder en conversaciónreplyCitar en respuestaMás acciones, AhoraMensajes nuevosIr al final Herramientas de Google WorkspaceColor del textoInsertar enlacecodecode_blocksMás opcionesColor del textoInsertar enlacecodecode_blocksDescubre más comandosExplorarEl historial está activado
+Cargando...Color del textoInsertar enlaceHerramientas de Google WorkspaceOpciones de formatoAñadir emojiAñadir GIF o pegatinaSubir archivoAñadir mensaje de vozarrow_drop_uparrow_drop_downProgramar envíosendEnviar mensajeChatBúsquedaBorrar búsquedaCerrar búsquedaMenú principalAplicaciones de GoogleCuenta de GoogleCharol Carrasco Domínguezcharolcarrascodominguez@gmail.comAsistenciaCargando…{"id": "", "title": "licitaciones.html", "mimeType": "text\/html"}<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Licitaciones | LicitaSeguro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">LicitaSeguro</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1>Buscar Licitaciones</h1>
+
+    <form id="formFiltro" class="row g-3">
+
+        <div class="col-md-4">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="date" id="fecha" class="form-control" required>
+        </div>
+
+        <div class="col-md-4">
+            <label for="estado" class="form-label">Estado</label>
+            <select id="estado" class="form-select" required>
+                <option value="">Seleccione</option>
+                <option value="publicada">Publicada</option>
+                <option value="adjudicada">Adjudicada</option>
+                <option value="revocada">Revocada</option>
+                <option value="cerrada">Cerrada</option>
+            </select>
+        </div>
+
+        <div class="col-md-4 align-self-end">
+            <button type="submit" class="btn btn-primary w-100">
+                Buscar
+            </button>
+        </div>
+
+    </form>
+
+    <div id="error" class="d-none mt-3" role="alert"></div>
+
+    <div id="loader" class="text-center d-none">
+        <div class="spinner-border text-primary">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+
+    <div id="resultados" class="mt-4" aria-live="polite"></div>
+
+    <div id="paginacion"></div>
+
+</div>
+
+<footer>
+    © 2026 LicitaSeguro
+</footer>
+
+<script type="module" src="js/licitaciones.js"></script>
+
+</body>
+</html>
