@@ -1,15 +1,25 @@
 import { CONFIG } from "./config.js";
 
-export async function fetchAPI(endpoint) {
+export async function fetchAPI(endpoint, retries = 2) {
     try {
         const response = await fetch(endpoint);
 
-        if (!response.ok) {
-            throw new Error("Error en servidor");
+        // Manejo específico 429
+        if (response.status === 429) {
+            if (retries > 0) {
+                console.warn("Demasiadas solicitudes. Reintentando...");
+                await new Promise(res => setTimeout(res, 2000)); // espera 2s
+                return fetchAPI(endpoint, retries - 1);
+            } else {
+                throw new Error("Demasiadas solicitudes. Intente más tarde.");
+            }
         }
 
-        const data = await response.json();
-        return data;
+        if (!response.ok) {
+            throw new Error(Error HTTP: ${response.status});
+        }
+
+        return await response.json();
 
     } catch (error) {
         console.error("Error API:", error);
