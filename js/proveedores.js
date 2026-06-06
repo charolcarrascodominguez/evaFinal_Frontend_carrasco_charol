@@ -22,7 +22,7 @@ document.getElementById("formProveedor")?.addEventListener("submit", async (e) =
             return;
         }
 
-        renderizarProveedor(data.Listado[0]);
+        renderizarProveedor(data.listaEmpresas[0]);
 
     } catch {
         mostrarError("Error consultando proveedor.");
