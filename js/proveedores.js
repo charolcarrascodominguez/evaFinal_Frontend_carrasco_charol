@@ -76,7 +76,7 @@ function limpiarRUT(rut) {
 function formatearRUT(rutLimpio) {
     const cuerpo = rutLimpio.slice(0, -1);
     const dv = rutLimpio.slice(-1);
-    return ${cuerpo}-${dv};
+    return `${cuerpo}-${dv}`;
 }
 
 
