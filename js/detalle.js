@@ -30,10 +30,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 function renderizarDetalle(detalle) {
     const contenedor = document.getElementById("detalle");
 
+    //  Siempre usar el objeto Fechas
+    const fechaCierre = detalle.Fechas && detalle.Fechas.FechaCierre
+        ? formatearFecha(detalle.Fechas.FechaCierre)
+        : "No disponible";
+
     contenedor.innerHTML = `
-        <h2>${limpiarTexto(detalle.Nombre)}</h2>
-        <p><strong>Descripción:</strong> ${limpiarTexto(detalle.Descripcion)}</p
-        <p><strong>Estado:</strong> ${detalle.Estado}</p>
-        <p><strong>Fecha cierre:</strong> ${detalle.FechaCierre}</p>
+        <h2>${detalle.Nombre || "Sin nombre"}</h2>
+        <p><strong>Descripción:</strong> ${detalle.Descripcion || "No disponible"}</p>
+        <p><strong>Estado:</strong> ${detalle.Estado || "No disponible"}</p>
+        <p><strong>Fecha cierre:</strong> ${fechaCierre}</p>
     `;
+}
+
+function formatearFecha(fechaISO) {
+    const fecha = new Date(fechaISO);
+
+    return fecha.toLocaleDateString("es-CL", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });
 }
