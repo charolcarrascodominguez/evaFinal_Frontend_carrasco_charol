@@ -3,7 +3,7 @@ import { CONFIG } from "./config.js";
 export async function fetchAPI(endpoint, retries = 2) {
     try {
         const response = await fetch(endpoint);
-
+        console.log("response " + response);
         // Manejo específico 429
         if (response.status === 429) {
             if (retries > 0) {
