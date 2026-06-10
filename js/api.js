@@ -16,7 +16,7 @@ export async function fetchAPI(endpoint, retries = 2) {
         }
 
         if (!response.ok) {
-            throw new Error(Error HTTP: ${response.status});
+            throw new Error(`Error HTTP: ${response.status}`);
         }
 
         return await response.json();
